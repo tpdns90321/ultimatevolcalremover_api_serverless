@@ -1,0 +1,3 @@
+[submodule "ultimatevocalremover_api"]
+	path = ultimatevocalremover_api
+	url = https://github.com/NextAudioGen/ultimatevocalremover_api
