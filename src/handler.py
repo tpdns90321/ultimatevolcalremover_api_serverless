@@ -47,7 +47,8 @@ def handler(job):
         torchaudio.save(
             buffer_,
             res[part],
-            rate
+            rate,
+            format="mp3"
         )
         buffer_.seek(0)
         result[part] = base64.b64encode(buffer_.read()).decode('utf-8')
