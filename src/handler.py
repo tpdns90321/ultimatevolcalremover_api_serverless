@@ -42,16 +42,14 @@ def handler(job):
 
     result = {}
     split_parts = ['vocals', 'bass', 'drums', 'other']
+    tmp_audio_part_name_template = '/tmp/' + str(hash(audio_base64)) + '{}.mp3'
     for part in split_parts:
-        buffer_ = io.BytesIO()
         torchaudio.save(
-            buffer_,
-            res[part],
-            rate,
-            format="mp3"
+            tmp_audio_part_name_template.format(part), res[part],
+            rate
         )
-        buffer_.seek(0)
-        result[part] = base64.b64encode(buffer_.read()).decode('utf-8')
+        with open(tmp_audio_part_name_template.format(part), 'rb') as pfile:
+            result[part] = base64.b64encode(pfile.read()).decode('utf-8')
 
     return result
 
