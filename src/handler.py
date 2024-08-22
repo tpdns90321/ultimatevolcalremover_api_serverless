@@ -12,6 +12,10 @@ import base64
 # You will want models to be loaded into memory before starting serverless.
 
 device = os.getenv("DEVICE", "cpu")
+demucs = models.Demucs(
+    name="hdemucs_mmi",
+    other_metadata={"segment": 2, "split": True},
+    device=device)
 
 def handler(job):
     """ Handler function that will be used to process jobs. """
@@ -26,10 +30,6 @@ def handler(job):
         buffer_ = io.BytesIO(bytes(audio_base64, 'utf-8'))
         base64.decode(buffer_, audio_file)
 
-    demucs = models.Demucs(
-            name="hdemucs_mmi",
-            other_metadata={"segment": 2, "split": True},
-            device=device)
     res = demucs(tmp_audio_file_name)
     _, rate = audiofile.read(tmp_audio_file_name)
 
