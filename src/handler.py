@@ -5,20 +5,13 @@ import runpod
 import io
 import audiofile
 from uvr import models
-from uvr.utils.get_models import download_all_models
 import torchaudio
-import json
 import base64
 
 # If your handler runs inference on a model, load the model here.
 # You will want models to be loaded into memory before starting serverless.
 
-models_json = json.load(
-    open("../ultimatevocalremover_api/src/models_dir/models.json", "r")
-)
-download_all_models(models_json)
 device = os.getenv("DEVICE", "cpu")
-
 
 def handler(job):
     """ Handler function that will be used to process jobs. """

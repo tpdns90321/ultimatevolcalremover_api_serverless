@@ -16,11 +16,12 @@ FROM runpod/base:0.4.0-cuda11.8.0
 # Python dependencies
 COPY builder/requirements.txt /requirements.txt
 COPY ultimatevocalremover_api /ultimatevocalremover_api
+COPY src/install.py /install.py
 RUN python3.11 -m pip install --upgrade pip && \
     python3.11 -m pip install --upgrade -r /requirements.txt --no-cache-dir && \
     python3.11 -m pip install --upgrade -r /ultimatevocalremover_api/requirements.txt --no-cache-dir && \
     python3.11 -m pip install /ultimatevocalremover_api && \
-    rm /requirements.txt
+    python3.11 /install.py
 
 # NOTE: The base image comes with multiple Python versions pre-installed.
 #       It is reccommended to specify the version of Python when running your code.
