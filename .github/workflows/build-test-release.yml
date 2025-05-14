@@ -47,6 +47,8 @@ jobs:
         uses: docker/metadata-action@v2
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
 
       # Build and push step
       - name: Build and push
